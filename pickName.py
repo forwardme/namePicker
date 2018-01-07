@@ -3,10 +3,11 @@ import re
 def cleanInput(input):
   output = re.sub('[\n\r]+'," ",input)
   output = re.sub(ur'[\uff0c\u3002\uff1a\u25cb]+'," ",output)
-  output = re.sub(' +'," ",output)
+  output = re.sub(' +',"",output)
   return output
 def ngrams(input,n):
-  input = input.split(' ')
+  input = input.split()
+  print input
   output = []
   for i in range(len(input)-n+1):
     output.append(input[i:i+n])
@@ -17,7 +18,7 @@ with open("001.txt","rb") as file:
 
 
 ngrams = ngrams(cleanInput(text),2)
-print ngrams
+#print ngrams
 print "2-grams count is: "+str(len(ngrams))
 with open('outputdata.txt','w') as file:
   for items in ngrams:

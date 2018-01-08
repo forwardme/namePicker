@@ -1,5 +1,6 @@
 ﻿#coding = gbk
 import re
+
 def cleanInput(input):
   output = re.sub('[\n\r]+'," ",input)
   output = re.sub(ur'[\uff0c\u3002\uff1a\u25cb]+'," ",output)
@@ -9,7 +10,7 @@ def ngrams(input,n):
   input = list(input)
   output = []
   for i in range(len(input)-n+1):
-    output.append(input[i:i+n])
+    output.append(tuple(input[i:i+n]))
   return output
   
 with open("001.txt","rb") as file:
@@ -17,6 +18,7 @@ with open("001.txt","rb") as file:
 
 
 ngrams = ngrams(cleanInput(text),2)
+
 print ngrams
 print "2-grams count is: "+str(len(ngrams))
 with open('outputdata.txt','w') as file:

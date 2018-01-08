@@ -1,9 +1,10 @@
 ﻿#coding = gbk
 import re
 import operator
+import os
 def cleanInput(input):
   output = re.sub('[\n\r]+'," ",input)
-  output = re.sub(ur'[\uff0c\u3002\uff1a\u25cb]+'," ",output)
+  output = re.sub(ur'[\uff0c\u3002\uff1a\u25cb\uff1f\u3001\uff08\uff09\uff01\u201c\u201d]+'," ",output)
   output = re.sub(' +',"",output)
   return output
 def ngrams(input,n):
@@ -15,9 +16,13 @@ def ngrams(input,n):
       output[ngramTemp] = 0
     output[ngramTemp] += 1
   return output
-  
-with open("001.txt","rb") as file:
-  text = file.read().decode('gbk')
+ 
+filelist = os.listdir(os.getcwd())
+filelist = [name for name in filelist if re.match('\([0-9]+\)',name)]
+text = ""
+for filename in filelist:
+  with open(filename,"rb") as file:
+    text += file.read().decode('gbk')
 
 
 ngrams = ngrams(cleanInput(text),2)
